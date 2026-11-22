@@ -1,0 +1,58 @@
+<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+
+    <!-- Borderless transparent host for a glass card. Blur behind it is enabled in code (GlassBackdrop). -->
+    <Style x:Key="GlassWindow" TargetType="Window">
+        <Setter Property="WindowStyle" Value="None" />
+        <Setter Property="AllowsTransparency" Value="True" />
+        <Setter Property="Background" Value="Transparent" />
+        <Setter Property="ResizeMode" Value="NoResize" />
+        <Setter Property="ShowInTaskbar" Value="False" />
+        <Setter Property="UseLayoutRounding" Value="True" />
+        <Setter Property="TextOptions.TextFormattingMode" Value="Display" />
+        <Setter Property="FontFamily" Value="{StaticResource Font.Text}" />
+        <Setter Property="Foreground" Value="{StaticResource Brush.Text.Primary}" />
+    </Style>
+
+    <!-- Layered glass: tint (blurred desktop shows through), specular sheen, then a lit edge. -->
+    <Style x:Key="GlassCard" TargetType="ContentControl">
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="ContentControl">
+                    <Grid>
+                        <Border CornerRadius="{StaticResource Radius.Card}" Background="{DynamicResource Brush.Glass.Fill}" />
+                        <Border CornerRadius="{StaticResource Radius.Card}" Background="{StaticResource Brush.Glass.Sheen}" />
+                        <Border CornerRadius="{StaticResource Radius.Card}" BorderThickness="1"
+                                BorderBrush="{StaticResource Brush.Glass.Edge}" />
+                        <ContentPresenter Margin="{StaticResource Padding.Card}" />
+                    </Grid>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+
+    <Style x:Key="Text.Title" TargetType="TextBlock">
+        <Setter Property="FontSize" Value="{StaticResource FontSize.Title}" />
+        <Setter Property="FontWeight" Value="SemiBold" />
+        <Setter Property="Foreground" Value="{StaticResource Brush.Text.Primary}" />
+    </Style>
+
+    <Style x:Key="Text.Body" TargetType="TextBlock">
+        <Setter Property="FontSize" Value="{StaticResource FontSize.Body}" />
+        <Setter Property="Foreground" Value="{StaticResource Brush.Text.Primary}" />
+    </Style>
+
+    <Style x:Key="Text.Caption" TargetType="TextBlock">
+        <Setter Property="FontSize" Value="{StaticResource FontSize.Caption}" />
+        <Setter Property="Foreground" Value="{StaticResource Brush.Text.Tertiary}" />
+    </Style>
+
+    <Style x:Key="Text.Time" TargetType="TextBlock">
+        <Setter Property="FontFamily" Value="{StaticResource Font.Display}" />
+        <Setter Property="FontSize" Value="{StaticResource FontSize.Time}" />
+        <Setter Property="FontWeight" Value="Light" />
+        <Setter Property="Foreground" Value="{StaticResource Brush.Text.Primary}" />
+        <Setter Property="Typography.NumeralAlignment" Value="Tabular" />
+        <Setter Property="TextOptions.TextFormattingMode" Value="Ideal" />
+    </Style>
+</ResourceDictionary>

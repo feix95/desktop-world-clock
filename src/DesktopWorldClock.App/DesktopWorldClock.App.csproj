@@ -1,0 +1,33 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <OutputType>WinExe</OutputType>
+    <TargetFramework>net10.0-windows</TargetFramework>
+    <UseWPF>true</UseWPF>
+    <!-- Only for the tray icon (NotifyIcon); WPF has no built-in tray support. -->
+    <UseWindowsForms>true</UseWindowsForms>
+    <AssemblyName>DesktopWorldClock</AssemblyName>
+    <RootNamespace>DesktopWorldClock.App</RootNamespace>
+    <Version>0.1.0</Version>
+    <ApplicationIcon>Assets\app.ico</ApplicationIcon>
+    <ApplicationManifest>app.manifest</ApplicationManifest>
+    <!-- WFO0003 targets WinForms-hosted apps; this is a WPF app, which takes its DPI mode from the manifest. -->
+    <NoWarn>$(NoWarn);WFO0003</NoWarn>
+    <!-- A single-window clock allocates almost nothing; background GC threads are not worth their memory. -->
+    <ConcurrentGarbageCollection>false</ConcurrentGarbageCollection>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <Using Remove="System.Windows.Forms" />
+    <Using Remove="System.Drawing" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Resource Include="Assets\app.ico" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\DesktopWorldClock.Core\DesktopWorldClock.Core.csproj" />
+  </ItemGroup>
+
+</Project>

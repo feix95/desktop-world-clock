@@ -1,0 +1,22 @@
+<Window x:Class="DesktopWorldClock.App.Clock.ClockWindow"
+        x:ClassModifier="internal"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        Title="Desktop World Clock"
+        Style="{StaticResource GlassWindow}"
+        SizeToContent="WidthAndHeight">
+    <ContentControl Style="{StaticResource GlassCard}" MinWidth="{StaticResource Size.ClockMinWidth}">
+        <StackPanel>
+            <DockPanel LastChildFill="False">
+                <TextBlock DockPanel.Dock="Left" Style="{StaticResource Text.Title}" Text="{Binding CityName}" />
+                <TextBlock DockPanel.Dock="Left" Style="{StaticResource Text.Caption}" Text="{Binding CityNameEn}"
+                           Margin="{StaticResource Spacing.InlineGap}" VerticalAlignment="Bottom" />
+                <TextBlock DockPanel.Dock="Right" Style="{StaticResource Text.Caption}" Text="{Binding UtcOffset}"
+                           VerticalAlignment="Bottom" />
+            </DockPanel>
+            <TextBlock Style="{StaticResource Text.Time}" Text="{Binding Time}" Margin="{StaticResource Spacing.TimeTop}" />
+            <TextBlock Style="{StaticResource Text.Caption}" Foreground="{StaticResource Brush.Text.Secondary}"
+                       Text="{Binding Date}" />
+        </StackPanel>
+    </ContentControl>
+</Window>
