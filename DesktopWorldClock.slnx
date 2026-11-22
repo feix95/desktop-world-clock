@@ -1,0 +1,9 @@
+<Solution>
+  <Folder Name="/src/">
+    <Project Path="src/DesktopWorldClock.App/DesktopWorldClock.App.csproj" />
+    <Project Path="src/DesktopWorldClock.Core/DesktopWorldClock.Core.csproj" />
+  </Folder>
+  <Folder Name="/tests/">
+    <Project Path="tests/DesktopWorldClock.Core.Tests/DesktopWorldClock.Core.Tests.csproj" />
+  </Folder>
+</Solution>

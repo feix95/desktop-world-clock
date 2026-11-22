@@ -1,12 +1,21 @@
+# Build output
+bin/
+obj/
+artifacts/
+TestResults/
+
+# IDE
+.vs/
+.vscode/
+.idea/
+*.user
+*.suo
+*.swp
+
 # OS
 Thumbs.db
 Desktop.ini
 .DS_Store
-
-# Editors
-.vscode/
-.idea/
-*.swp
 
 # Logs and temp
 *.log
