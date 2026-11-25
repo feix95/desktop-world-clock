@@ -5,6 +5,12 @@ A minimal, lightweight desktop clock for Windows. Pick any city; the clock shows
 
 Status: prototype (v0.1.0).
 
+## Download
+
+Installers and portable builds are published on the
+[Releases](https://github.com/feix95/desktop-world-clock/releases) page. The installer lets you choose
+the install folder; the portable zip needs no installation.
+
 ## Features
 
 - Borderless glass card with desktop blur, drag to place, position remembered
@@ -17,7 +23,7 @@ Status: prototype (v0.1.0).
 ## Requirements
 
 - Windows 10 1903 or later (x64)
-- To run: .NET 10 Desktop Runtime
+- The released installer and portable build need no runtime (self-contained)
 - To build: .NET 10 SDK
 
 ## Build and run
@@ -37,13 +43,21 @@ dotnet test --solution DesktopWorldClock.slnx
 
 Warnings are treated as errors. Tests include a check that no source file exceeds 300 non-blank lines.
 
-## Publish
+## Package a release
 
 ```powershell
-dotnet publish src/DesktopWorldClock.App -c Release -r win-x64 --self-contained false -p:PublishReadyToRun=true -o artifacts/publish
+pwsh -File scripts/build-release.ps1
 ```
 
-Run `artifacts/publish/DesktopWorldClock.exe`.
+This produces, in `artifacts/release/`:
+
+- `DesktopWorldClock-<version>-win-x64-portable.zip`: self-contained single exe; extract and run
+- `DesktopWorldClock-<version>-win-x64-setup.exe`: Inno Setup installer with a folder picker,
+  Start Menu shortcut and uninstaller
+- `SHA256SUMS.txt`: SHA-256 checksums of the two files above
+
+Requires the .NET 10 SDK and Inno Setup 6 or 7. The version comes from `Version` in
+`src/DesktopWorldClock.App/DesktopWorldClock.App.csproj`.
 
 ## Project layout
 
@@ -53,6 +67,8 @@ Run `artifacts/publish/DesktopWorldClock.exe`.
 | `src/DesktopWorldClock.App` | WPF app: windows, tray icon, theme, single-instance and lifecycle |
 | `src/DesktopWorldClock.App/Theme/Tokens.xaml` | All colors, fonts, sizes and spacing (design tokens) |
 | `tests/DesktopWorldClock.Core.Tests` | Unit tests (xUnit v3) |
+| `installer/DesktopWorldClock.iss` | Inno Setup script for the Windows installer |
+| `scripts/build-release.ps1` | Builds the portable zip, the installer and checksums |
 
 ## Data locations
 

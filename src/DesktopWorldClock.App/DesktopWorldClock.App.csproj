@@ -9,6 +9,10 @@
     <AssemblyName>DesktopWorldClock</AssemblyName>
     <RootNamespace>DesktopWorldClock.App</RootNamespace>
     <Version>0.1.0</Version>
+    <AssemblyTitle>Desktop World Clock</AssemblyTitle>
+    <Product>Desktop World Clock</Product>
+    <Description>A minimal desktop clock for Windows that shows any city's local time.</Description>
+    <Company>feix95</Company>
     <ApplicationIcon>Assets\app.ico</ApplicationIcon>
     <ApplicationManifest>app.manifest</ApplicationManifest>
     <!-- WFO0003 targets WinForms-hosted apps; this is a WPF app, which takes its DPI mode from the manifest. -->
