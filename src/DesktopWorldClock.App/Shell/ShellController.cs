@@ -1,4 +1,5 @@
 using System.IO;
+using System.Security;
 using System.Windows;
 using DesktopWorldClock.App.CityPicker;
 using DesktopWorldClock.App.Clock;
@@ -37,6 +38,7 @@ internal sealed class ShellController : IDisposable
     {
         _settings = LoadSettings();
         _city = CityCatalog.FindById(_settings.Clocks[0].CityId) ?? CityCatalog.Default;
+        RepairAutoStart();
 
         var menu = BuildMenu();
         _window = new ClockWindow(_clock, menu) { Topmost = _settings.IsTopmost };
@@ -72,6 +74,7 @@ internal sealed class ShellController : IDisposable
     [
         new MenuCommand("选择城市…", OpenCityPicker),
         new MenuCommand("始终置顶", ToggleTopmost, () => _settings.IsTopmost),
+        new MenuCommand("开机自启动", ToggleAutoStart, () => AutoStartRegistration.IsEnabled),
         new MenuCommand("显示时钟", ToggleClock, () => _window?.IsVisible == true),
         new MenuSeparator(),
         new MenuCommand("退出", Exit),
@@ -110,6 +113,41 @@ internal sealed class ShellController : IDisposable
         if (_window is not null)
         {
             _window.Topmost = _settings.IsTopmost;
+        }
+    }
+
+    private static void ToggleAutoStart()
+    {
+        if (Environment.ProcessPath is not { } executablePath)
+        {
+            ErrorReporter.Log("Auto-start toggle skipped: the executable path is unavailable.");
+            return;
+        }
+
+        try
+        {
+            AutoStartRegistration.SetEnabled(!AutoStartRegistration.IsEnabled, executablePath);
+        }
+        catch (Exception ex) when (ex is UnauthorizedAccessException or SecurityException or IOException)
+        {
+            ErrorReporter.Log("Changing the auto-start registration failed.", ex);
+        }
+    }
+
+    private static void RepairAutoStart()
+    {
+        if (Environment.ProcessPath is not { } executablePath)
+        {
+            return;
+        }
+
+        try
+        {
+            AutoStartRegistration.RepairIfTargetMissing(executablePath);
+        }
+        catch (Exception ex) when (ex is UnauthorizedAccessException or SecurityException or IOException)
+        {
+            ErrorReporter.Log("Repairing the auto-start registration failed.", ex);
         }
     }
 

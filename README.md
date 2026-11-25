@@ -10,6 +10,7 @@ Status: prototype (v0.1.0).
 - Borderless glass card with desktop blur, drag to place, position remembered
 - Choose a city (Chinese or English search); time zone and daylight saving handled automatically
 - Tray icon: left click shows/hides, right click opens the menu
+- Optional launch at sign-in, toggled from the tray menu
 - Single instance: launching again brings the existing clock to the front
 - Exits cleanly: no background process or service is left behind
 
